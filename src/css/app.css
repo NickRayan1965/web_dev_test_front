@@ -1,0 +1,64 @@
+/* Establecer el div principal para que ocupe el 100% del alto del viewport */
+body {
+  margin: 0%;
+}
+#root {
+  height: 98vh;
+}
+.centered-form-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 98%;
+  margin: 0 auto; /* Centrado horizontal si es necesario */
+}
+
+/* Ajustar el formulario para que ocupe todo el ancho del div padre con un margen del 20% */
+.form-container-title {
+  width: 100%;
+  margin: 0 auto; /* Centrado horizontal si es necesario */
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+.centered-form-container form {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 60%); /* 100% menos los márgenes a los lados */
+  min-height: 60%;
+  margin: auto; /* 5% de margen superior e inferior, auto para los lados */
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  /* Eliminamos justify-content para que los inputs comiencen desde arriba */
+}
+.form-box {
+  margin: auto 0;
+}
+
+/* Si quieres que los inputs tengan un espacio arriba dentro del formulario */
+.input-container {
+  margin-top: 2rem; /* o cualquier otro valor que prefieras */
+}
+.input-container input {
+  width: 100%;
+}
+.submit-button {
+  display: block;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+/* Para dispositivos más pequeños, puedes ajustar el margen lateral del formulario */
+@media (max-width: 700px) {
+  .centered-form-container form {
+    width: calc(
+      100% - 10%
+    ); /* Deja un 10% de margen lateral en dispositivos pequeños */
+  }
+  .form-container-title {
+    width: calc(
+      100% - 10%
+    ); /* Deja un 10% de margen lateral en dispositivos pequeños */
+  }
+}
