@@ -11,7 +11,7 @@ import { bodyParser } from '../../common/utilities/bodyparser.util';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 
-export default function PanelUser() {
+export default function PanelUser({onRefresh}) {
   const { jwt, user, logout } = useAuth();
   const { fetchData: fetchUsers } = useFetch('/users');
   const { Delete: deleteUser } = useDeleteRequest('/users');
@@ -52,7 +52,7 @@ export default function PanelUser() {
           setShowUserForm(false);
           setSelectedUser(null);
           setTimeout(() => {
-            window.location.reload();
+            onRefresh();
           }, 500);
           return 'Usuario actualizado correctamente';
         },

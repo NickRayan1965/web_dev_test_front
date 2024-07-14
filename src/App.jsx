@@ -4,9 +4,15 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './auth/PrivateRoute';
 import PanelTask from './components/task/PanelTask';
 import PanelUser from './components/user/PanelUser';
+import { useState } from 'react';
 export default function App() {
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleRefresh = () => {
+    setRefreshKey(prevKey => prevKey + 1);
+  };
   let routes = (
-    <Routes>
+    <Routes key={refreshKey}>
       <Route path="*" element={<Navigate to="/login" />} />
       <Route path="/login" element={<LoginForm />} />
       <Route path="/register" element={<UserForm />} />
@@ -22,7 +28,7 @@ export default function App() {
         path="/users"
         element={
           <PrivateRoute>
-            <PanelUser />
+            <PanelUser onRefresh={handleRefresh}/>
           </PrivateRoute>
         }
       />
