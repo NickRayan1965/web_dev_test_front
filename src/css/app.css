@@ -1,6 +1,6 @@
 /* Establecer el div principal para que ocupe el 100% del alto del viewport */
 body {
-  background-image: url('../img/todo-bk3.2.png');
+  background-image: url('/assets/todo-bk3.2.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
