@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import useAuth from '../common/helpers/UseAuth';
+import useAuth from '../common/helpers/UseAuth'; //
 export default function PrivateRoute({ children }) {
   const { user } = useAuth();
 
