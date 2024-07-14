@@ -32,6 +32,10 @@ export function LoginForm() {
           toast.error('Credenciales inválidas');
           return;
         }
+        if (message?.statusCode === 403) {
+          toast.error('Usuario inactivo o con restricciones');
+          return;
+        }
         toast.error('Ocurrió un error al iniciar sesión');
       });
   });
