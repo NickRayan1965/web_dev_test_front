@@ -7,5 +7,5 @@ export default defineConfig({
   // server: {
   //   port: 3050,
   // },
-  base: "https://NickRayan1965.github.io/web_dev_test_front",
+  base: "/web_dev_test_front/",
 })
