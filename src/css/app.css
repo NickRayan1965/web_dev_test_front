@@ -334,3 +334,9 @@ body {
     width: 1.5rem;
   }
 }
+.exit-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  /* Puedes ajustar los valores top y left según tus necesidades */
+}

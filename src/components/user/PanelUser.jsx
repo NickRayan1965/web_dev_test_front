@@ -8,16 +8,18 @@ import { Dialog } from 'primereact/dialog';
 import { UserForm } from './UserForm';
 import usePatchRequest from '../../common/helpers/use-patch-request';
 import { bodyParser } from '../../common/utilities/bodyparser.util';
+import { Button } from 'primereact/button';
+import { useNavigate } from 'react-router-dom';
 
 export default function PanelUser() {
-  const { jwt, user } = useAuth();
+  const { jwt, user, logout } = useAuth();
   const { fetchData: fetchUsers } = useFetch('/users');
   const { Delete: deleteUser } = useDeleteRequest('/users');
   const { patch: patchUser } = usePatchRequest('/users');
   const [showUserForm, setShowUserForm] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-  const fetchUsersImpl = ({page, pageSize}) => {
-    return fetchUsers({jwt, query: {page, count: pageSize}});
+  const fetchUsersImpl = ({ page, pageSize }) => {
+    return fetchUsers({ jwt, query: { page, count: pageSize } });
   };
   const onDelete = useCallback(
     (userId, next) => {
@@ -76,10 +78,15 @@ export default function PanelUser() {
   useEffect(() => {
     fetchUsers({ jwt });
   }, [jwt, fetchUsers]);
+  const navigate = useNavigate();
   return (
     <div className="panel">
       <div className="panel-content transparent-content">
-        <UserTable onDelete={onDelete} onEdit={onEdit} fetchUsers={fetchUsersImpl}/>
+        <UserTable
+          onDelete={onDelete}
+          onEdit={onEdit}
+          fetchUsers={fetchUsersImpl}
+        />
         <Dialog
           visible={showUserForm}
           onHide={() => {
@@ -90,6 +97,14 @@ export default function PanelUser() {
           <UserForm update data={selectedUser} onUpdate={onPatchUser} />
         </Dialog>
       </div>
+      <Button
+        className="exit-button"
+        label="Salir"
+        onClick={() => {
+          navigate('/login');
+          logout();
+        }}
+      />
     </div>
   );
 }
