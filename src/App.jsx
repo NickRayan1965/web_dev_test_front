@@ -1,9 +1,10 @@
 import { UserForm } from './components/user/UserForm';
 import { LoginForm } from './components/auth/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import TaskForm from './components/task/TaskForm';
 import PrivateRoute from './auth/privateRoute';
 import {} from 'react-router-dom';
+import PanelTask from './components/task/PanelTask';
+import PanelUser from './components/user/PanelUser';
 export default function App() {
   let routes = (
     <Routes>
@@ -14,7 +15,15 @@ export default function App() {
         path="/tasks"
         element={
           <PrivateRoute>
-            <TaskForm />
+            <PanelTask />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <PrivateRoute>
+            <PanelUser />
           </PrivateRoute>
         }
       />

@@ -4,6 +4,8 @@ import App from './App';
 import 'primereact/resources/themes/lara-light-indigo/theme.css'; // theme
 import 'primereact/resources/primereact.css';
 import './css/app.css';
+import 'primeicons/primeicons.css';
+
 import { Toaster } from 'sonner';
 
 import { PrimeReactProvider } from 'primereact/api';

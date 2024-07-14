@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { API_URL } from '../../config/Environment';
 export default function usePostRequest(url) {
-  const [data, setData] = useState(null);
   const post = useCallback(
     async ({ body, jwt }) => {
       const response = await fetch(API_URL + url, {
@@ -13,17 +12,17 @@ export default function usePostRequest(url) {
         },
         body: JSON.stringify(body),
       });
-      console.log(response);
+      const responseBody = await response.json();
       if (!response.ok) {
-        throw new Error(response.statusText);
+        console.log(responseBody);
+        throw new Error(JSON.stringify(responseBody));
       }
-      const result = await response.json();
-      setData(result);
+      return responseBody;
     },
     [url]
   );
 
-  return { data, post };
+  return { post };
 }
 usePostRequest.propTypes = {
   url: PropTypes.string.isRequired,

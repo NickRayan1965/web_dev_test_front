@@ -1,4 +1,4 @@
-import { API_URL } from "../config/Environment";
+import { API_URL } from '../config/Environment';
 
 export const logout = () => {
   localStorage.removeItem('jwt');
@@ -12,19 +12,38 @@ export const login = async ({ username, password }) => {
     },
     body: JSON.stringify({ username, password }),
   });
+
   if (!response.ok) {
-    throw new Error(response.statusText);
+    const errorBody = await response.json();
+    throw new Error(JSON.stringify(errorBody));
   }
+
   const data = await response.json();
-  localStorage.setItem('jwt', data.jwt);
-  localStorage.setItem('user', JSON.stringify(data.user));
+  if (data && data.jwt) {
+    localStorage.setItem('jwt', data.jwt);
+    localStorage.setItem('user', JSON.stringify(data.user));
+    console.log('Login exitoso:', data);
+  } else {
+    console.error('No se recibieron los datos de autenticación esperados.');
+  }
   return data;
 };
+
 export const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem('user'));
+  try {
+    return JSON.parse(localStorage.getItem('user'));
+  } catch (error) {
+    logout();
+    return null;
+  }
 };
 export const getJwt = () => {
-  return localStorage.getItem('jwt');
+  try {
+    return localStorage.getItem('jwt');
+  } catch (error) {
+    logout();
+    return null;
+  }
 };
 export default {
   logout,

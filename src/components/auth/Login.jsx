@@ -9,6 +9,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../common/helpers/UseAuth';
 import InputBlock from '../../common/components/InputBlock';
+import { toast } from 'sonner';
+import RedirectLoginRegister from './RedirectLoginRegister';
+import isValidJson from '../../common/utilities/isValidJson.util';
 
 export function LoginForm() {
   const { login } = useAuth();
@@ -19,21 +22,25 @@ export function LoginForm() {
     formState: { errors },
   } = useForm();
   const onSubmit = handleSubmit((dataForm) => {
-    console.log(dataForm);
     login(dataForm)
       .then(() => {
-        console.log('login success');
-        navigate('/tasks');
+        navigate('/users');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((e) => {
+        const message = JSON.parse(isValidJson(e?.message) ? e.message : '{}');
+        if (message?.statusCode === 401) {
+          toast.error('Credenciales inválidas');
+          return;
+        }
+        toast.error('Ocurrió un error al iniciar sesión');
       });
   });
   return (
-    <div className="centered-form-container">
-      <form onSubmit={onSubmit}>
+    <div className="centered-form-container user-form">
+      <form onSubmit={onSubmit} className="transparent-content">
         <span className="form-container-title">Iniciar Sesión</span>
         <div className="form-box">
+          <br />
           <InputBlock
             register={register}
             namefield="username"
@@ -45,6 +52,8 @@ export function LoginForm() {
               maxLength: maxLength(20),
             }}
           />
+          <br />
+          <br />
           <InputBlock
             type="password"
             register={register}
@@ -61,6 +70,11 @@ export function LoginForm() {
             type="submit"
             label="Iniciar sesión"
             className="submit-button"
+          />
+          <RedirectLoginRegister
+            redirectTo="/register"
+            message="¿No tienes una cuenta?"
+            linkMessage="Regístrate"
           />
         </div>
       </form>
