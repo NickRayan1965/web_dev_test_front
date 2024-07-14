@@ -1,8 +1,7 @@
 import { UserForm } from './components/user/UserForm';
 import { LoginForm } from './components/auth/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import PrivateRoute from './auth/privateRoute';
-import {} from 'react-router-dom';
+import PrivateRoute from './auth/PrivateRoute';
 import PanelTask from './components/task/PanelTask';
 import PanelUser from './components/user/PanelUser';
 export default function App() {
